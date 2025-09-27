@@ -301,9 +301,9 @@ const Dashboard = () => {
                     required
                   >
                     <option value="">Select Food Category</option>
-                    <option value="high_perishable">🍦 High Perishable (2 hours max)</option>
-                    <option value="medium_perishable">🍛 Medium Perishable (6 hours max)</option>
-                    <option value="low_perishable">🥨 Low Perishable (24 hours max)</option>
+                    <option value="high_perishable">🍦 High Perishable (2-3 hours max) (milk, salads, seafood, cut fruits, dairy desserts)</option>
+                    <option value="medium_perishable">🍛 Medium Perishable (6 hours max) (curries, rice, bread, cooked veg, pulses)</option>
+                    <option value="low_perishable">🥨 Low Perishable (24 hours max) (dry snacks, biscuits, packaged food, pickles)</option>
                   </select>
                 </div>
 
