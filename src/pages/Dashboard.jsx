@@ -1,6 +1,7 @@
 // src/pages/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import MapPicker from '../components/MapPicker.jsx';
+import '../styles/Dashboard.css';
 
 const Dashboard = () => {
   const [userType, setUserType] = useState('restaurant');
@@ -74,7 +75,7 @@ const Dashboard = () => {
     setSelectedLocation(coordinates);
     setFoodForm(prev => ({
       ...prev,
-      pickupLocation: `Location: ${coordinates.lat.toFixed(4)}, ${coordinates.lng.toFixed(4)}`
+      pickupLocation: `Selected Location (${coordinates.lat.toFixed(4)}, ${coordinates.lng.toFixed(4)})`
     }));
     setShowMap(false);
   };
@@ -90,7 +91,7 @@ const Dashboard = () => {
       const postData = {
         ...foodForm,
         availableUntil,
-        coordinates: selectedLocation || { lat: 31.3260, lng: 75.5762 } // Default Jalandhar
+        coordinates: selectedLocation || { lat: 31.3260, lng: 75.5762 }
       };
 
       const response = await fetch('http://localhost:5000/api/food-posts', {
@@ -141,40 +142,21 @@ const Dashboard = () => {
     }
   };
 
-  // Simple Map Display Component for NGO View
+  // Simple Map Display Component
   const SimpleMapDisplay = ({ items, type }) => (
-    <div style={{ 
-      height: '300px', 
-      background: '#e8f4f8', 
-      borderRadius: '10px',
-      padding: '20px',
-      textAlign: 'center',
-      margin: '10px 0',
-      border: '2px solid #4CAF50'
-    }}>
-      <h4>🗺️ {type} Map View</h4>
-      <div style={{ 
-        height: '200px', 
-        background: 'linear-gradient(45deg, #87CEEB, #98FB98)',
-        borderRadius: '8px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        margin: '10px 0'
-      }}>
-        <div style={{ fontSize: '48px' }}>📍</div>
-        <p><strong>Interactive Map</strong></p>
-        <p>Showing {items.length} locations in Jalandhar</p>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+    <div className="simple-map-display">
+      <div style={{ fontSize: '48px', marginBottom: '10px' }}>🗺️</div>
+      <h4>{type} Map View</h4>
+      <p>Showing {items.length} locations in Jalandhar</p>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '15px' }}>
         {items.slice(0, 4).map(item => (
           <span key={item.id} style={{
             background: '#4CAF50',
             color: 'white',
-            padding: '5px 10px',
-            borderRadius: '15px',
-            fontSize: '12px'
+            padding: '8px 15px',
+            borderRadius: '20px',
+            fontSize: '12px',
+            fontWeight: '600'
           }}>
             📍 {item.name}
           </span>
@@ -187,7 +169,7 @@ const Dashboard = () => {
     <div className="page-dashboard">
       {/* Notifications Banner */}
       <div className="notifications-banner">
-        <h3>🔔 Notifications</h3>
+        <h3>🔔 Real-time Notifications</h3>
         <div className="notification-list">
           {notifications.slice(0, 3).map(notif => (
             <div key={notif.id} className={`notification ${notif.read ? 'read' : 'unread'}`}>
@@ -199,14 +181,18 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-header">
-        <h1>Dashboard</h1>
+        <h1>Food Rescue Dashboard</h1>
         <div className="user-type-toggle">
-          <button className={userType === 'restaurant' ? 'active' : ''} 
-                  onClick={() => setUserType('restaurant')}>
+          <button 
+            className={userType === 'restaurant' ? 'active' : ''} 
+            onClick={() => setUserType('restaurant')}
+          >
             🏪 Restaurant View
           </button>
-          <button className={userType === 'ngo' ? 'active' : ''} 
-                  onClick={() => setUserType('ngo')}>
+          <button 
+            className={userType === 'ngo' ? 'active' : ''} 
+            onClick={() => setUserType('ngo')}
+          >
             🤝 NGO View
           </button>
         </div>
@@ -216,151 +202,184 @@ const Dashboard = () => {
       {userType === 'restaurant' && (
         <>
           <div className="restaurant-tabs">
-            <button className={activeTab === 'post' ? 'active' : ''} 
-                    onClick={() => setActiveTab('post')}>
+            <button 
+              className={activeTab === 'post' ? 'active' : ''} 
+              onClick={() => setActiveTab('post')}
+            >
               📤 Post Food
             </button>
-            <button className={activeTab === 'track' ? 'active' : ''} 
-                    onClick={() => setActiveTab('track')}>
+            <button 
+              className={activeTab === 'track' ? 'active' : ''} 
+              onClick={() => setActiveTab('track')}
+            >
               📊 My Posts
             </button>
-            <button className={activeTab === 'map' ? 'active' : ''} 
-                    onClick={() => setActiveTab('map')}>
+            <button 
+              className={activeTab === 'map' ? 'active' : ''} 
+              onClick={() => setActiveTab('map')}
+            >
               🗺️ Nearby NGOs
             </button>
           </div>
 
-          {activeTab === 'post' ? (
+          {activeTab === 'post' && (
             <div className="post-food-form">
               <h3>Post Surplus Food</h3>
-              <form onSubmit={handleSubmitFood}>
-                <input type="text" name="foodItemName" placeholder="Food Item Name" 
-                       value={foodForm.foodItemName} onChange={handleInputChange} required />
-                
-                <input type="number" name="quantity" placeholder="Quantity (meals)" 
-                       value={foodForm.quantity} onChange={handleInputChange} required />
-
-                <textarea name="description" placeholder="Description" 
-                          value={foodForm.description} onChange={handleInputChange} />
-
-                <div className="location-picker">
-                  <label>Pickup Location</label>
-                  <div className="location-input" style={{ display: 'flex', gap: '10px', margin: '10px 0' }}>
-                    <input 
-                      type="text" 
-                      value={foodForm.pickupLocation} 
-                      readOnly 
-                      style={{ flex: 1 }}
-                    />
-                    <button 
-                      type="button" 
-                      onClick={() => setShowMap(!showMap)}
-                      style={{
-                        padding: '10px 15px',
-                        background: showMap ? '#ff9800' : '#4CAF50',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {showMap ? '❌ Close Map' : '🗺️ Open Map'}
-                    </button>
-                  </div>
-                  {showMap && <MapPicker onLocationSelect={handleLocationSelect} />}
+              <form onSubmit={handleSubmitFood} className="form-vertical">
+                <div className="form-group">
+                  <label>Food Item Name</label>
+                  <input 
+                    type="text" 
+                    name="foodItemName"
+                    placeholder="e.g., Fresh Pizza, Vegetable Curry" 
+                    value={foodForm.foodItemName} 
+                    onChange={handleInputChange} 
+                    required 
+                  />
                 </div>
 
-                <input type="datetime-local" name="availableUntil" 
-                       value={foodForm.availableUntil} onChange={handleInputChange} required />
+                <div className="form-group">
+                  <label>Quantity (number of meals)</label>
+                  <input 
+                    type="number" 
+                    name="quantity"
+                    placeholder="e.g., 10, 25, 50" 
+                    value={foodForm.quantity} 
+                    onChange={handleInputChange} 
+                    required 
+                  />
+                </div>
 
-                <select name="foodType" value={foodForm.foodType} onChange={handleInputChange} required>
-                  <option value="">Select Food Type</option>
-                  <option value="high_perishable">High Perishable (2 hours)</option>
-                  <option value="medium_perishable">Medium Perishable (6 hours)</option>
-                  <option value="low_perishable">Low Perishable (24 hours)</option>
-                </select>
+                <div className="form-group">
+                  <label>Description & Special Instructions</label>
+                  <textarea 
+                    name="description"
+                    placeholder="Describe the food, any special handling instructions, packaging details..."
+                    value={foodForm.description} 
+                    onChange={handleInputChange} 
+                  />
+                </div>
 
-                <button type="submit" disabled={loading} style={{
-                  padding: '12px',
-                  background: loading ? '#ccc' : '#4CAF50',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  fontSize: '16px',
-                  width: '100%'
-                }}>
-                  {loading ? '⏳ Posting...' : '🚀 Post Food'}
+                <div className="form-group">
+                  <label>Pickup Location</label>
+                  <div className="location-picker">
+                    <div className="location-input">
+                      <input 
+                        type="text" 
+                        value={foodForm.pickupLocation} 
+                        readOnly 
+                      />
+                      <button 
+                        type="button" 
+                        className="map-toggle-btn"
+                        onClick={() => setShowMap(!showMap)}
+                      >
+                        {showMap ? '❌ Close Map' : '🗺️ Open Map'}
+                      </button>
+                    </div>
+                    {showMap && <MapPicker onLocationSelect={handleLocationSelect} />}
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>Available Until</label>
+                  <input 
+                    type="datetime-local" 
+                    name="availableUntil"
+                    value={foodForm.availableUntil} 
+                    onChange={handleInputChange} 
+                    required 
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Food Type</label>
+                  <select 
+                    name="foodType" 
+                    value={foodForm.foodType} 
+                    onChange={handleInputChange} 
+                    required
+                  >
+                    <option value="">Select Food Category</option>
+                    <option value="high_perishable">🍦 High Perishable (2 hours max)</option>
+                    <option value="medium_perishable">🍛 Medium Perishable (6 hours max)</option>
+                    <option value="low_perishable">🥨 Low Perishable (24 hours max)</option>
+                  </select>
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="submit-button" 
+                  disabled={loading}
+                >
+                  {loading ? '⏳ Posting Food...' : '🚀 Post Food for Rescue'}
                 </button>
               </form>
             </div>
-          ) : activeTab === 'track' ? (
+          )}
+
+          {activeTab === 'track' && (
             <div className="tracking-section">
-              <h3>Your Food Posts</h3>
-              <div className="food-posts">
+              <h3 style={{ textAlign: 'center', marginBottom: '30px', color: '#2c3e50' }}>
+                Your Food Donation History
+              </h3>
+              <div className="food-posts-grid">
                 {myPosts.map(post => (
-                  <div key={post.id} className={`food-card ${post.status}`} style={{
-                    background: 'white',
-                    padding: '15px',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-                    borderLeft: `4px solid ${post.status === 'available' ? '#4CAF50' : '#ff9800'}`
-                  }}>
-                    <h4>{post.foodItemName}</h4>
-                    <p>Quantity: {post.quantity} meals</p>
-                    <p>Type: {post.foodType}</p>
-                    <p>Location: {post.pickupLocation}</p>
-                    <span className={`status ${post.status}`} style={{
-                      padding: '3px 8px',
-                      background: post.status === 'available' ? '#4CAF50' : '#ff9800',
-                      color: 'white',
-                      borderRadius: '3px',
-                      fontSize: '12px'
-                    }}>
-                      {post.status}
-                    </span>
+                  <div key={post.id} className={`food-post-card ${post.status}`}>
+                    <div className="post-header">
+                      <h4>🍽️ {post.foodItemName}</h4>
+                      <span className={`status ${post.status}`}>
+                        {post.status === 'available' ? '🟢 Available' : '✅ Claimed'}
+                      </span>
+                    </div>
+                    <div style={{ lineHeight: '1.8' }}>
+                      <p><strong>Quantity:</strong> {post.quantity} meals</p>
+                      <p><strong>Type:</strong> {post.foodType}</p>
+                      <p><strong>Location:</strong> {post.pickupLocation}</p>
+                      <p><strong>Posted:</strong> {new Date(post.createdAt).toLocaleString()}</p>
+                    </div>
                     {post.status === 'claimed' && (
-                      <button style={{ marginTop: '10px', padding: '5px 10px' }}>
-                        View Details
+                      <button className="contact-btn" style={{ marginTop: '15px' }}>
+                        📞 View Claim Details
                       </button>
                     )}
                   </div>
                 ))}
+                {myPosts.length === 0 && (
+                  <div style={{ 
+                    textAlign: 'center', 
+                    padding: '40px', 
+                    color: '#6c757d',
+                    gridColumn: '1 / -1'
+                  }}>
+                    <div style={{ fontSize: '48px', marginBottom: '15px' }}>🍽️</div>
+                    <h3>No Food Posts Yet</h3>
+                    <p>Start by posting your first surplus food donation!</p>
+                  </div>
+                )}
               </div>
             </div>
-          ) : (
+          )}
+
+          {activeTab === 'map' && (
             <div className="map-section">
-              <h3>Nearby NGOs in Jalandhar</h3>
+              <h3 style={{ textAlign: 'center', marginBottom: '25px', color: '#2c3e50' }}>
+                🤝 Nearby NGOs in Jalandhar
+              </h3>
               
               <SimpleMapDisplay items={nearbyNGOs} type="NGO" />
               
-              <div className="ngos-list" style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                gap: '15px',
-                marginTop: '20px'
-              }}>
+              <div className="ngos-grid">
                 {nearbyNGOs.map(ngo => (
-                  <div key={ngo.id} className="ngo-card" style={{
-                    background: 'white',
-                    padding: '15px',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
-                  }}>
+                  <div key={ngo.id} className="ngo-card">
                     <h4>🏢 {ngo.name}</h4>
-                    <p>📍 Distance: {ngo.distance}</p>
-                    <p>👥 Volunteers: {ngo.volunteers}</p>
-                    <button style={{
-                      padding: '8px 15px',
-                      background: '#2196F3',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                      width: '100%',
-                      marginTop: '10px'
-                    }}>
-                      📞 Contact NGO
+                    <div style={{ lineHeight: '1.8', margin: '15px 0' }}>
+                      <p>📍 <strong>Distance:</strong> {ngo.distance}</p>
+                      <p>👥 <strong>Volunteers:</strong> {ngo.volunteers}</p>
+                      <p>⭐ <strong>Active in Food Rescue</strong></p>
+                    </div>
+                    <button className="contact-btn">
+                      📞 Contact for Partnership
                     </button>
                   </div>
                 ))}
@@ -373,92 +392,73 @@ const Dashboard = () => {
       {/* NGO View */}
       {userType === 'ngo' && (
         <div className="ngo-dashboard">
-          <div className="available-food">
-            <h3>Available Food Nearby</h3>
-            <button onClick={fetchData} style={{
-              padding: '10px 15px',
-              background: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginBottom: '15px'
-            }}>
-              🔄 Refresh Food List
-            </button>
+          <div className="available-food-section">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
+              <h3 style={{ margin: 0, color: '#2c3e50' }}>🍽️ Available Food Nearby</h3>
+              <button onClick={fetchData} className="refresh-btn">
+                🔄 Refresh List
+              </button>
+            </div>
             
-            <SimpleMapDisplay items={availableFoods} type="Food" />
+            <SimpleMapDisplay items={availableFoods} type="Food Donations" />
             
-            <div className="food-list" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '15px'
-            }}>
+            <div className="food-posts-grid">
               {availableFoods.map(food => (
-                <div key={food.id} className="food-card" style={{
-                  background: 'white',
-                  padding: '15px',
-                  borderRadius: '8px',
-                  boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-                  borderLeft: '4px solid #4CAF50'
-                }}>
-                  <h4>🍽️ {food.foodItemName}</h4>
-                  <p>📊 Quantity: {food.quantity} meals</p>
-                  <p>📍 Location: {food.pickupLocation}</p>
-                  <p>⏰ Type: {food.foodType}</p>
-                  <p>🕐 Posted: {new Date(food.createdAt).toLocaleTimeString()}</p>
+                <div key={food.id} className="food-post-card">
+                  <div className="post-header">
+                    <h4>🍽️ {food.foodItemName}</h4>
+                    <span className={`status ${food.status}`}>
+                      {food.status === 'available' ? '🟢 Available' : '✅ Claimed'}
+                    </span>
+                  </div>
+                  <div style={{ lineHeight: '1.8' }}>
+                    <p><strong>Quantity:</strong> {food.quantity} meals</p>
+                    <p><strong>Type:</strong> {food.foodType}</p>
+                    <p><strong>Location:</strong> {food.pickupLocation}</p>
+                    <p><strong>Posted:</strong> {new Date(food.createdAt).toLocaleTimeString()}</p>
+                    <p><strong>Restaurant:</strong> {food.restaurant?.name || 'Local Restaurant'}</p>
+                  </div>
                   <button 
                     onClick={() => handleClaimFood(food.id)} 
                     disabled={food.status !== 'available'}
-                    style={{
-                      padding: '10px',
-                      background: food.status === 'available' ? '#4CAF50' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: food.status === 'available' ? 'pointer' : 'not-allowed',
-                      width: '100%',
-                      marginTop: '10px'
-                    }}
+                    className="claim-btn"
                   >
-                    {food.status === 'available' ? '✅ Claim Food' : '✅ Claimed ✓'}
+                    {food.status === 'available' ? '✅ Claim This Food' : '✅ Already Claimed'}
                   </button>
                 </div>
               ))}
+              {availableFoods.length === 0 && (
+                <div style={{ 
+                  textAlign: 'center', 
+                  padding: '40px', 
+                  color: '#6c757d',
+                  gridColumn: '1 / -1'
+                }}>
+                  <div style={{ fontSize: '48px', marginBottom: '15px' }}>🍽️</div>
+                  <h3>No Available Food Right Now</h3>
+                  <p>Check back later for new food donations from restaurants.</p>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="map-view" style={{ marginTop: '30px' }}>
-            <h3>Nearby Restaurants in Jalandhar</h3>
+          <div className="map-section">
+            <h3 style={{ textAlign: 'center', marginBottom: '25px', color: '#2c3e50' }}>
+              🏪 Partner Restaurants in Jalandhar
+            </h3>
             
             <SimpleMapDisplay items={nearbyRestaurants} type="Restaurant" />
             
-            <div className="restaurants-list" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-              gap: '15px',
-              marginTop: '20px'
-            }}>
+            <div className="restaurants-grid">
               {nearbyRestaurants.map(restaurant => (
-                <div key={restaurant.id} className="restaurant-card" style={{
-                  background: 'white',
-                  padding: '15px',
-                  borderRadius: '8px',
-                  boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
-                }}>
+                <div key={restaurant.id} className="restaurant-card">
                   <h4>🏪 {restaurant.name}</h4>
-                  <p>📍 Distance: {restaurant.distance}</p>
-                  <p>⭐ Rating: {restaurant.rating}</p>
-                  <button style={{
-                    padding: '8px 15px',
-                    background: '#FF9800',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    width: '100%',
-                    marginTop: '10px'
-                  }}>
+                  <div style={{ lineHeight: '1.8', margin: '15px 0' }}>
+                    <p>📍 <strong>Distance:</strong> {restaurant.distance}</p>
+                    <p>⭐ <strong>Rating:</strong> {restaurant.rating}/5</p>
+                    <p>🤝 <strong>Active Food Donor</strong></p>
+                  </div>
+                  <button className="contact-btn">
                     🤝 Contact Restaurant
                   </button>
                 </div>

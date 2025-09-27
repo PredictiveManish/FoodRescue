@@ -3,6 +3,7 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .dashboard-header {
@@ -10,142 +11,443 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #d36504 0%, #764ba2 100%);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.user-type-toggle {
+  display: flex;
+  gap: 15px;
 }
 
 .user-type-toggle button {
-  padding: 10px 20px;
-  margin: 0 5px;
-  border: 2px solid #ddd;
-  background: white;
+  padding: 12px 24px;
+  border: 2px solid rgba(26, 97, 66, 0.3);
+  background: rgba(255,255,255,0.1);
+  color: rgb(20, 154, 29);
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.user-type-toggle button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
 }
 
 .user-type-toggle button.active {
-  background: #4CAF50;
-  color: white;
-  border-color: #4CAF50;
+  background: white;
+  color: #667eea;
+  border-color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Forms */
-.post-food-form {
-  background: #f9f9f9;
+/* Notifications Banner */
+.notifications-banner {
+  background: linear-gradient(135deg, #36487d 0%, #86246c 100%);
   padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  color: white;
+  box-shadow: 0 5px 20px rgba(255,107,107,0.3);
 }
 
-.post-food-form input,
-.post-food-form textarea,
-.post-food-form select {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.form-row {
+.notifications-banner h3 {
+  margin: 0 0 15px 0;
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.form-row input {
-  flex: 1;
-}
-
-/* Food Cards */
-.food-list, .food-posts {
-  display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.food-card, .ngo-card, .restaurant-card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border-left: 4px solid #4CAF50;
-}
-
-.food-card.claimed {
-  border-left-color: #ff9800;
-}
-
-.status {
-  padding: 3px 8px;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.status.available { background: #4CAF50; color: white; }
-.status.claimed { background: #ff9800; color: white; }
-
-/* Notifications */
-.notifications-banner {
-  background: #e3f2fd;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .notification {
-  padding: 8px;
-  margin: 5px 0;
-  background: white;
-  border-radius: 5px;
+  padding: 12px 15px;
+  background: rgba(70, 145, 193, 0.2);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
 }
 
 .notification.unread {
-  border-left: 3px solid #ff5722;
+  border-left: 4px solid #1791c5;
+  background: rgba(198, 169, 169, 0.3);
 }
 
-/* Map Picker */
-.location-picker {
-  margin: 15px 0;
-}
-
-.map-picker {
-  background: #f0f8ff;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 10px 0;
-}
-
-.location-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 10px 0;
-}
-
-.location-btn {
-  padding: 8px 15px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Tabs */
+/* Restaurant Tabs */
 .restaurant-tabs {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  background: rgb(53, 42, 126);
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(23, 111, 146, 0.1);
 }
 
 .restaurant-tabs button {
-  padding: 10px 20px;
-  border: 1px solid #ddd;
-  background: white;
+  padding: 15px 25px;
+  border: none;
+  background: #f8f9fa;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.restaurant-tabs button:hover {
+  background: #155ba1;
+  transform: translateY(-2px);
 }
 
 .restaurant-tabs button.active {
-  background: #2196F3;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
+  box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+}
+
+/* Post Food Form */
+.post-food-form {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.post-food-form h3 {
+  margin: 0 0 25px 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.form-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.1);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Location Picker */
+.location-picker {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px dashed #dee2e6;
+}
+
+.location-input {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.location-input input {
+  flex: 1;
+}
+
+.map-toggle-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.map-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33,150,243,0.3);
+}
+
+/* Submit Button */
+.submit-button {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76,175,80,0.3);
+}
+
+.submit-button:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* Food Cards Grid */
+.food-posts-grid {
+  display: grid;
+  gap: 0px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.food-post-card {
+  background: white;
+  padding: 10px;
+  border-radius: 150px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border-left: 5px solid #4CAF50;
+}
+
+.food-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.food-post-card.claimed {
+  border-left-color: #ff9800;
+}
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.post-header h4 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status.available {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.claimed {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* NGO and Restaurant Cards */
+.ngos-grid,
+.restaurants-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.ngo-card,
+.restaurant-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.ngo-card:hover,
+.restaurant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.ngo-card h4,
+.restaurant-card h4 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.contact-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33,150,243,0.3);
+}
+
+/* Map Sections */
+.map-section {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.simple-map-display {
+  background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px 0;
+  color: #2c3e50;
+}
+
+/* NGO View */
+.ngo-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.available-food-section {
+  background: white;
+  padding: 0px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.refresh-btn {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.refresh-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255,152,0,0.3);
+}
+
+.claim-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.claim-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+}
+
+.claim-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .user-type-toggle {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .restaurant-tabs {
+    flex-direction: column;
+  }
+  
+  .food-posts-grid,
+  .ngos-grid,
+  .restaurants-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .location-input {
+    flex-direction: column;
+  }
 }
