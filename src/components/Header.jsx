@@ -39,7 +39,7 @@ const Header = ({ currentPage, setCurrentPage, isDarkMode, setIsDarkMode }) => {
 
         <div className="header-controls">
           <DarkModeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-          <button className="login-button">Login</button>
+          {/* <button className="login-button">Login</button> */}
         </div>
       </div>
     </header>
