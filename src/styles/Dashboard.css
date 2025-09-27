@@ -1,0 +1,151 @@
+/* Dashboard Styles */
+.page-dashboard {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-type-toggle button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 2px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.user-type-toggle button.active {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+/* Forms */
+.post-food-form {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.post-food-form input,
+.post-food-form textarea,
+.post-food-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+/* Food Cards */
+.food-list, .food-posts {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.food-card, .ngo-card, .restaurant-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-left: 4px solid #4CAF50;
+}
+
+.food-card.claimed {
+  border-left-color: #ff9800;
+}
+
+.status {
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status.available { background: #4CAF50; color: white; }
+.status.claimed { background: #ff9800; color: white; }
+
+/* Notifications */
+.notifications-banner {
+  background: #e3f2fd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.notification {
+  padding: 8px;
+  margin: 5px 0;
+  background: white;
+  border-radius: 5px;
+}
+
+.notification.unread {
+  border-left: 3px solid #ff5722;
+}
+
+/* Map Picker */
+.location-picker {
+  margin: 15px 0;
+}
+
+.map-picker {
+  background: #f0f8ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.location-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.location-btn {
+  padding: 8px 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Tabs */
+.restaurant-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.restaurant-tabs button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restaurant-tabs button.active {
+  background: #2196F3;
+  color: white;
+}
