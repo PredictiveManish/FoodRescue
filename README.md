@@ -136,9 +136,9 @@ Dashboard → View available food → Claim food → Receive notifications
 
 | Category | Examples | Auto-Expiry |
 |----------|----------|-------------|
-| 🔴 High Perishable | Milk, salads, seafood | 2 hours |
-| 🟡 Medium Perishable | Curries, rice, bread | 6 hours |
-| 🟢 Low Perishable | Packaged food, snacks | 24 hours |
+| 🔴 High Perishable | milk, salads, seafood, cut fruits, dairy desserts | 2 hours |
+| 🟡 Medium Perishable | Ccurries, rice, bread, cooked veg, pulses | 6 hours |
+| 🟢 Low Perishable | dry snacks, biscuits, packaged food, pickles | 24 hours |
 
 ## 🎯 Step-by-Step Usage Guide
 
