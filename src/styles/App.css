@@ -153,25 +153,57 @@ body {
 .page-home {
   padding-top: 0;
 }
-
-/* Hero Banner */
+/* Hero Banner Styles */
 .hero-banner {
-  background-image: url("./assets/bglogo.jpeg");
+  position: relative;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   overflow: hidden;
-  background: var(--gradient);
 }
 
 .hero-background {
-
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.1;
+}
+
+/* Background Images */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: 1;
+}
+
+.bg-image.active {
+  opacity: 0.15; /* Adjust opacity as needed */
+}
+
+/* Overlay for better text readability */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 2;
 }
 
 .floating-food-icon {

@@ -1,8 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const Home = ({ setCurrentPage }) => {  // Add setCurrentPage prop
+const Home = ({ setCurrentPage }) => {
   const foodCounterRef = useRef(null);
+  const [currentBg, setCurrentBg] = useState(0);
   
+  // Background images array
+  const backgroundImages = [
+    '/src/assets/bg1.jpg',
+    '/src/assets/bg2.jpg', 
+    '/src/assets/bg3.jpg',
+    '/src/assets/bg4.jpg'
+  ];
+
+  // Background slideshow effect
   useEffect(() => {
     const animateCounter = () => {
       let count = 0;
@@ -23,11 +33,17 @@ const Home = ({ setCurrentPage }) => {  // Add setCurrentPage prop
     };
 
     animateCounter();
+
+    // Background slideshow interval
+    const bgInterval = setInterval(() => {
+      setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(bgInterval);
   }, []);
 
   const handleGetStarted = () => {
     setCurrentPage('get-started');
-    // Smooth scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -40,10 +56,18 @@ const Home = ({ setCurrentPage }) => {  // Add setCurrentPage prop
     <div className="page-home">
       <section className="hero-banner">
         <div className="hero-background">
-          <div className="floating-food-icon">🍎</div>
-          <div className="floating-food-icon">🍞</div>
-          <div className="floating-food-icon">🥦</div>
+          {/* Background Images with Fade Animation */}
+          {backgroundImages.map((bg, index) => (
+            <div 
+              key={index}
+              className={`bg-image ${index === currentBg ? 'active' : ''}`}
+              style={{ backgroundImage: `url(${bg})` }}
+            />
+          ))}
+          <div className="hero-overlay"></div>
+          
         </div>
+        
         <div className="hero-content">
           <h1 className="hero-title">Turning Waste into Hope</h1>
           <button className="cta-button" onClick={handleJoinNow}>Join Now</button>
