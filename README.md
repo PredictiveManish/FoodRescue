@@ -8,3 +8,4 @@ Vite (Bundler/Build Tool)
 Typescript for Type checking
 ESLint
 Bootstrap
+
