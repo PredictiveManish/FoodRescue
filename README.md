@@ -1,7 +1,7 @@
 # 🍽️ Food Rescue - Surplus Food Management System
 
 A web platform connecting restaurants with NGOs to reduce food waste and help communities in need.
-
+Built by Team Aryavarti
 ## 🌟 Features
 
 ### For Restaurants
